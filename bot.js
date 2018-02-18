@@ -10,13 +10,14 @@ var fortunes = [
 
 var bot = new Discord.Client();
 
-bot.on("guildMemberAdd", function(){
-  member.guild.channels.find("name","general").sendMessage(member.toString()+" Welcome to the Server!");
-});
+//Welcome message when new member arrives.
+//bot.on("guildMemberAdd", function(){
+//  member.guild.channels.find("name","general").sendMessage(member.toString()+" Welcome to the Server!");
+//});
 
 bot.on("ready", function() {
   console.log('Logged in as $s\n',bot.username);
-  bot.user.setGame("Ready");
+  bot.user.setGame("with DianaBot");
 });
 
 bot.on("message", function(message) {
