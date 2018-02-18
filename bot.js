@@ -9,7 +9,6 @@ var fortunes = [
 ];
 
 var bot = new Discord.Client();
-//bot.user.setGame("!help");
 
 bot.on("guildMemberAdd", function(){
   member.guild.channels.find("name","general").sendMessage(member.toString()+" Welcome to the Server!");
@@ -17,6 +16,7 @@ bot.on("guildMemberAdd", function(){
 
 bot.on("ready", function() {
   console.log('Logged in as $s\n',bot.username);
+  bot.user.setStatus("Ready");
 });
 
 bot.on("message", function(message) {
