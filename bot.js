@@ -16,7 +16,7 @@ bot.on("guildMemberAdd", function(){
 
 bot.on("ready", function() {
   console.log('Logged in as $s\n',bot.username);
-  bot.user.setStatus("Ready");
+  bot.user.setGame("Ready");
 });
 
 bot.on("message", function(message) {
