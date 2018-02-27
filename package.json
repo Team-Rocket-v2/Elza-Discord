@@ -1,0 +1,19 @@
+{
+  "name": "romeobot",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "version": "1.0.0",
+  "description": "Jarvis' Elder Bro!",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "author": "Kavishankar",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.0",
+    "require": "2.4.20"
+  }
+}
