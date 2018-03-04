@@ -134,7 +134,7 @@ else if(fuck.test(args)){
 }
 
 //grabdapuss
-else if(gitcat.test(args))
+/*else if(gitcat.test(args))
 {
   request({
            url: cat,
@@ -143,7 +143,7 @@ else if(gitcat.test(args))
            message.channel.send(body);
        })
 }
-
+*/
 //wassuuuuuuuuuup
 else if(wassup.test(args))
 {
