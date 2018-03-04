@@ -1,6 +1,7 @@
 //import discord.js libraries
 const Discord = require("discord.js");
 const  cat = require("random-cat");
+const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
@@ -43,6 +44,7 @@ var gm3 = /\bgm\b/;
 var fuck = /(stfu|fak|fook|frickin|friggin|fuck|fuk|fok)/;
 var bus = /bus/;
 var gitcat = /(\bpussy\b|\bcat\b|\bkitty\b|\bmeow\b|\bkitten\b)/;
+var food = /fo[o]+d/;
 
 //Reply Arrays
 var stopswear = [
@@ -136,6 +138,16 @@ else if(fuck.test(args)){
 else if(gitcat.test(args))
 {
   message.channel.send(new Discord.RichEmbed().setImage(cat.get()));
+}
+
+//food
+else if(food.test(args)){
+  request({
+            url: "https://source.unsplash.com/640x480/?food",
+            json: true
+        }, function (error, response, body) {
+            message.channel.send(body);
+        })
 }
 
 //wassuuuuuuuuuup
