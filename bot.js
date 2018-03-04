@@ -1,6 +1,6 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-const  cat = require("thecatapi");
+const  cat = require("random-cat");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
@@ -135,7 +135,7 @@ else if(fuck.test(args)){
 //grabdapuss
 else if(gitcat.test(args))
 {
-  message.channel.send(new Discord.RichEmbed().setImage(new cat()));
+  message.channel.send(new Discord.RichEmbed().setImage(cat.get()));
 }
 
 //wassuuuuuuuuuup
