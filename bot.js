@@ -1,6 +1,6 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-const request = require("request");
+//const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
