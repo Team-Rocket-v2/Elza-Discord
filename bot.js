@@ -1,6 +1,6 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-//const request = require("request");
+const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
@@ -134,7 +134,7 @@ else if(fuck.test(args)){
 }
 
 //grabdapuss
-/*else if(gitcat.test(args))
+else if(gitcat.test(args))
 {
   request({
            url: cat,
@@ -143,7 +143,7 @@ else if(fuck.test(args)){
            message.channel.send(body);
        })
 }
-*/
+
 //wassuuuuuuuuuup
 else if(wassup.test(args))
 {
