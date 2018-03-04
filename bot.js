@@ -1,10 +1,11 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-const request = require("request");
+//const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
-const cat = "http://random.cat/meow.php";
+//const cat = "http://random.cat/meow.php";
+const  cat = require("random-cat");
 
 //functions
 function getRandomInt(max) {
@@ -136,12 +137,14 @@ else if(fuck.test(args)){
 //grabdapuss
 else if(gitcat.test(args))
 {
-  request({
+/*  request({
            url: cat,
            json: true
        }, function (error, response, body) {
            message.channel.send(body);
        })
+       */
+  message.channel.send(new Discord.RichEmbed().setImage(cat.get()));
 }
 
 //wassuuuuuuuuuup
