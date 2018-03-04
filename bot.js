@@ -5,7 +5,7 @@ const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
-const foodurl = "https://source.unsplash.com/640x480/?food";
+//const foodurl = "https://source.unsplash.com/640x480/?food";
 
 //functions
 function getRandomInt(max) {
