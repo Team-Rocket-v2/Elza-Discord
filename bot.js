@@ -135,7 +135,7 @@ else if(fuck.test(args)){
 //grabdapuss
 else if(gitcat.test(args))
 {
-  message.channel.send(new Discord.RichEmbed().setImage(cat.get()));
+  message.channel.send(new Discord.RichEmbed().setImage(new cat()));
 }
 
 //wassuuuuuuuuuup
