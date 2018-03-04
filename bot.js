@@ -5,6 +5,7 @@ const request = require("request");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
+const foodurl = "https://source.unsplash.com/640x480/?food";
 
 //functions
 function getRandomInt(max) {
@@ -143,7 +144,7 @@ else if(gitcat.test(args))
 //food
 else if(food.test(args)){
   request({
-            url: "https://source.unsplash.com/640x480/?food",
+            url: foodurl,
             json: true
         }, function (error, response, body) {
             message.channel.send(body);
