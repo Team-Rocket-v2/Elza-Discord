@@ -142,7 +142,7 @@ else if(gitcat.test(args))
 }
 
 //food
-else if(food.test(args)){
+/*else if(food.test(args)){
   request({
             url: foodurl,
             json: true
@@ -150,7 +150,7 @@ else if(food.test(args)){
             message.channel.send(body);
         })
 }
-
+*/
 //wassuuuuuuuuuup
 else if(wassup.test(args))
 {
