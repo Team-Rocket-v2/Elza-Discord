@@ -12,6 +12,6 @@
   "dependencies": {
     "discord.js": "^11.3.0",
     "random-cat": "^1.0.1",
-	"request": "^2.4.20"
+	"request": "^2.83.0"
   }
 }
