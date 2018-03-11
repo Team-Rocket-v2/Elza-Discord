@@ -2,8 +2,8 @@
 const Discord = require("discord.js");
 const cat = require("random-cat");
 const playmsg = "Funny Freak";
-const partnerid = 414150249209397257;
-const partner = /<@414150249209397257>/;
+const partnerid = 419752665313181696;
+const partner = /<@419752665313181696>/;
 
 //functions
 function getRandomInt(max) {
