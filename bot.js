@@ -1,6 +1,5 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-const cat = require("random-cat");
 const playmsg = "Funny Freak";
 const partnerid = 414150249209397257;
 const partner = /<@414150249209397257>/;
@@ -42,7 +41,6 @@ var gm2 = /goodmorning/;
 var gm3 = /\bgm\b/;
 var fuck = /(stfu|fak|fook|frickin|friggin|fuck|fuk|fok)/;
 var bus = /bus/;
-var gitcat = /(\bpussy\b|\bcat\b|\bkitty\b|\bmeow\b|\bkitten\b)/;
 
 //Reply Arrays
 var stopswear = [
@@ -130,12 +128,6 @@ else if(fuck.test(args)){
   message.channel.send(getSTFUPartner());
   else
   message.channel.send(getStopCurse());
-}
-
-//grabdapuss
-else if(gitcat.test(args))
-{
-  message.channel.send(new Discord.RichEmbed().setImage(cat.get()));
 }
 
 //wassuuuuuuuuuup

@@ -10,7 +10,6 @@
   "author": "Kavishankar",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.2",
-    "random-cat": "^1.0.1"
+    "discord.js": "^11.3.2"
   }
 }
