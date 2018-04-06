@@ -1,154 +1,336 @@
 //import discord.js libraries
 const Discord = require("discord.js");
-const playmsg = "Funny Freak";
-const partnerid = 414150249209397257;
-const partner = /<@414150249209397257>/;
+const config = require("./config.json");
+let mode = 1;
 
-//functions
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+//spamtime func
+function spamtime(spam_house){
+  if(mode == 1)
+  {
+  spam_house.startTyping(3);
+  spam_house.send(config.SPAM_MSG);
+  spam_house.stopTyping(true);
+  }
 }
 
-function getStopCurse(){
-  return stopcursereplies[getRandomInt(stopcursereplies.length)];
+//waitsend func
+function waitsend(client,chan,tp){
+  client.channels.get(chan).send(tp);
 }
 
-function getSTFUPartner(){
-  return stfupartnerreplies[getRandomInt(stfupartnerreplies.length)];
+//logging function
+function logEnter(message, logdata)
+{
+  if(bot.channels.get(config.LOG_ID) && bot.channels.get(config.LOG_ID).type == "text")
+    bot.channels.get(config.LOG_ID).send(logdata);
+  else
+    message.channel.send("Log channel not found!");
 }
-
-function getGN(){
-  return gnreplies[getRandomInt(gnreplies.length)];
-}
-
-function getGM(){
-  return gmreplies[getRandomInt(gmreplies.length)];
-}
-
-function getStopSwear() {
-  return stopswear[getRandomInt(stopswear.length)];
-}
-
-//Regular expressions
-var gn1 = /good night/;
-var gn2 = /goodnight/;
-var gn3 = /\bgn\b/;
-var everyone = /\@everyone/;
-var wassup = /wass[u]+p/;
-var wassupp = /wass[u]+/;
-var gm1 = /good morning/;
-var gm2 = /goodmorning/;
-var gm3 = /\bgm\b/;
-var fuck = /(stfu|fak|fook|frickin|friggin|fuck|fuk|fok)/;
-var bus = /bus/;
-
-//Reply Arrays
-var stopswear = [
-  "Can you Stop Swearing, Wooman? >.>",
-  "Aggressive language detected!"
-];
-var stfupartnerreplies = [
-  "Uh oh Wrong Move bud! *tsk tsk tsk*",
-  "Stop cursing my woman, dude!",
-  "Stand ho cursing mine own mistress, broth'r!"
-];
-var stopcursereplies = [
-  ":scream: How rude!!!",
-  ":open_mouth: Was that just said in public?",
-  ":dizzy_face: I will act as if I didn't hear anything.",
-  ":smiling_imp: Yep, The insult was like a bullet to the heart!"
-];
-var gnreplies = [
-  "Studies suggest that people who go to sleep late are more likely to have higher intelligence than those who go to bed early :smile:",
-  "Dear Bed! You are my one true love.. ",
-  "Off to Club Bed featuring DJ Pillow and Mc Blanky :open_mouth:",
-  "I have a date today.... with my bed. We're totally gonna sleep together :wink:",
-  "Good night :smiley:     Oh! And If you dream of me, Remember I like it rough :wink:",
-  "I don't fall asleep, I overthink myself into a short coma!"
-];
-var gmreplies = [
-  "If your eyes hurt after you drink coffee, you have to take the spoon out of the cup :smile:",
-  "Trust me, When I woke up today, I had no plans to be awesome... But shit happens :shrug:",
-  "I hate the part of morning where I have to get outta bed and participate in real life...",
-  "I was gonna take over the world this morning but I overslept. Postponed. Again!!! :grimacing:",
-  "I could be a morning person if morning happens around noon..",
-  "You know that moment when you wake up in the morning full of energy? hmm? Me neither xD",
-  "My bed wasn't feeling well this morning, So I stayed home to take care of it!"
-];
 
 //Bot instance and Playing message
 var bot = new Discord.Client();
 bot.on("ready", function() {
   console.log('Logged in as '+bot.user.username);
-  bot.user.setActivity(playmsg);
+  bot.user.setActivity('with Ana!', { type: 'PLAYING' })
+
+  //spam
+  spam_house = bot.channels.get(config.SPAM_CHANNEL);
+  setInterval(spamtime,1500,spam_house);
+
 });
 
 //When a message is received
 bot.on("message", function(message) {
-//does not reply to self
-  if(message.author == bot.user) return;
-//store the message in args after converting to lowercase
-  var args = message.content.toLowerCase();
 
-//if the message is from partner
-if(message.author.id == partnerid)
+if(message.author == bot.user) return;
+if(message.channel.type == "dm") return ;
+
+//ping
+if(message.content.toLowerCase() == "!ping")
 {
-  if(fuck.test(args))
+  let pingtime = parseInt(bot.ping);
+  message.channel.send(`Po${'o'.repeat((pingtime-100)/10)}ng! ${pingtime}ms`);
+}
+
+else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase() == "!stop")
+{
+  bot.user.setActivity('with Snowman!', { type: 'PLAYING' });
+  message.channel.send("zzzZZZzzz");
+  mode = 0;
+}
+
+else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase() == "!start")
+{
+  if(mode == 1)
   {
-    if(getRandomInt(4) == 1)
-  message.channel.send(getStopSwear());
+    message.channel.send("I'm right here lol :joy:");
   }
-  else if(bus.test(args))
-  {
-    if(getRandomInt(3) != 1)
-    message.channel.send("Don't listen to her. You have a nice day!");
-  }
-
-}
-else {
-//Mention
-if(args == bot.user)
-message.channel.send("Ah Poop! I can't believe you've done this!");
-
-//good night
-else if((gn1.test(args) ||  gn2.test(args)  || gn3.test(args)) && everyone.test(args) && getRandomInt(2) == 1)
-{
-  message.channel.send(getGN());
-}
-
-//good morning
-else if((gm1.test(args) || gm2.test(args) || gm3.test(args)) && everyone.test(args))
-{
-  message.channel.send(getGM());
-}
-
-//stfu @ partner
-else if(fuck.test(args)){
-  if(partner.test(args))
-  message.channel.send(getSTFUPartner());
   else
-  message.channel.send(getStopCurse());
+  { 
+    bot.user.setActivity('with Ana!', { type: 'PLAYING' }); 
+    message.channel.send("Do you wanna catch Pokemoooooons?");
+    mode = 1;
+  }
 }
 
-//wassuuuuuuuuuup
-else if(wassup.test(args))
+else if(mode == 1)
 {
-  var answer = "WASS";
-if(args.length<10)
-answer+="UUUUUUUUUU";
-else {
-  for(var i=0;i<args.length-5;i++)
-  answer+="U";
-}
-answer += "P?";
-message.channel.send(answer);
+//When a New pokemon appears or a pokemon levels up
+if(message.author.id == config.POKECORD_ID)
+{
+
+  //level up (Need to test)
+  if(message.content.match(/\b100!```/) && message.content.indexOf(bot.user.username) != -1)
+  {
+    bot.channels.get(config.SAY_CHANNEL).send("p!info");
+    bot.channels.get(config.SAY_CHANNEL).send("p!n");
+    logEnter(message, message.content);
+  }
+
+  //new poke... possibly
+  else
+  {
+  message.embeds.forEach((embed) => {
+    if(embed.title){
+    if(embed.title.startsWith("A wild")){
+      var purl=embed.image.url.toString();
+      purl=purl.substring(purl.indexOf(purl.match(/[A-Z]/)));
+      purl=purl.substring(0,purl.indexOf(purl.match(/[^A-Za-z]/)));
+      if (purl == "DVdRNzub")
+        purl = "Pheromosa";
+      if (purl == "ZFhVGXfqLm")
+        purl = "Nihilego";
+      if (purl == "NUZGOUliZbVp")
+        purl = "Xurkitree";
+      if (purl == "ANvAfwmkGRaB")
+        purl = "Buzzwole";
+      if (purl == "WVViynlNwhq")
+        purl = "Celesteela";
+      if (purl == "BerOymYadVZb")
+        purl = "Kartana";
+      if (purl == "RNgybNqrYHt")
+        purl = "Guzzlord";
+      if (purl == "CxNLfbLtZvMP")
+        purl = "Poipole";
+      if (purl == "BRtRnAKMm")
+        purl = "Naganadel";
+      if (purl == "XPJVtJJDCWO")
+        purl = "Stakataka";
+      if (purl == "WnZrvNFUht")
+        purl = "Blacephalon";
+      if (purl == "ZwtyzSpoTGK")
+        purl = "Mewtwo";
+      if (purl == "EnGVvUpPvFla")
+        purl = "Pikachu";
+      if (purl == "AwhJEbFjPny")
+        purl = "Sableye";
+      if (purl == "FTddeIjIvRTi")
+        purl = "Gastly";
+      if (purl == "LuMnrrdafnND")
+        purl = "Vulpix";
+      if (purl == "FmgyRqsjVuQ")
+        purl = "Ninetales";
+      if (purl == "BoRNRwCIno")
+        purl = "Espeon";
+      if (purl == "UlaeTRHTQKPZ")
+        purl = "Sylveon";
+      if (purl == "VHqyKhNEQFty")
+        purl = "Umbreon";
+      if (purl == "WwEkVykHXvni")
+        purl = "Flareon";
+      if (purl == "VyEviGywEOl")
+        purl = "Glaceon";
+      if (purl == "CzNDTVh")
+        purl = "Vaporeon";
+      if (purl == "PzJhuXvooAxu")
+        purl = "Jolteon";
+      if (purl == "HPNnLbWftdv")
+        purl = "Leafeon";
+      if (purl == "TdJFNIbZLtD")
+        purl = "Rockruff";
+      if (purl == "QzTTypudiXg")
+        purl = "Lycanroc";
+      if (purl == "RYgHJuvUUT")
+        purl = "Necrozma";
+      if (purl == "YbkjWOSQYGT")
+        purl = "Cosmog";
+      if (purl == "OXgNulEK")
+        purl = "Solgaleo";
+      if (purl == "KkFJEJvHIk")
+        purl = "Lunala";
+      if (purl == "CLMXnAHoJBHz")
+        purl = "Arceus";
+      if (purl == "ABILovbRKFj")
+        purl = "Articuno";
+      if (purl == "QsIWrEOWzdFZ")
+        purl = "Azelf";
+      if (purl == "XSBkJJPKDr")
+        purl = "Celebi";
+      if (purl == "GVUFalDTQCu")
+        purl = "Cobalion";
+      if (purl == "GVUFalDTQCu")
+        purl = "Cresselia";
+      if (purl == "PymtoiCJkjfF")
+        purl = "Darkrai";
+      if (purl == "KFBEarCORUNx")
+        purl = "Deoxys";
+      if (purl == "EyrnISUymuXj")
+        purl = "Dialga";
+      if (purl == "VgFYcpQTuGcL")
+        purl = "Entei";
+      if (purl == "LRzWPtwPpUGf")
+        purl = "Genesect";
+      if (purl == "LjZxfPivZxG")
+        purl = "Giratina";
+      if (purl == "HyEzrFRvvf")
+        purl = "Groudon";
+      if (purl == "IDyvqbxkSK")
+        purl = "Heatran";
+      if (purl == "NKcRJRyzXtCs")
+        purl = "Ho-Oh";
+      if (purl == "KGpuxmLsNU")
+        purl = "Jirachi";
+      if (purl == "QRnPhHMru")
+        purl = "Keldeo";
+      if (purl == "ZjNWcRpYeL")
+        purl = "Kyogre";
+      if (purl == "FYRxKEoKrDsn")
+        purl = "Kyurem";
+      if (purl == "DOWDgxkTBKN")
+        purl = "Landorus";
+      if (purl == "UlaoIUTYzze")
+        purl = "Latias";
+      if (purl == "HMJOYWOrpfI")
+        purl = "Latios";
+      if (purl == "YyBjmtLqNJb")
+        purl = "Lugia";
+      if (purl == "OhHdWsAIonRP")
+        purl = "Manaphy";
+      if (purl == "MuvAg")
+        purl = "Meloetta";
+      if (purl == "ZrtVXpOsXYD")
+        purl = "Mesprit";
+      if (purl == "GOvTOLWUXLyi")
+        purl = "Mew";
+      if (purl == "ZkYQHqyjWHF")
+        purl = "Moltres";
+      if (purl == "PKoCOJhjCQ")
+        purl = "Palkia";
+      if (purl == "VyZGhxJJYF")
+        purl = "Phione";
+      if (purl == "EZuvTLLhEpDT")
+        purl = "Raikou";
+      if (purl == "UUbmdNYWQGe")
+        purl = "Rayquaza";
+      if (purl == "PegdgOrDJauX")
+        purl = "Regice";
+      if (purl == "HXUuofxeSJe")
+        purl = "Regigigas";
+      if (purl == "BQlppBYsqWJX")
+        purl = "Regirock";
+      if (purl == "PegdgOrDJauX")
+        purl = "Registeel";
+      if (purl == "AQPPuTcdnBu")
+        purl = "Reshiram";
+      if (purl == "DfKyJVhlQ")
+        purl = "Shaymin";
+      if (purl == "IPCdYBDsYZRO")
+        purl = "Silvally";
+      if (purl == "DGccLGDwfAr")
+        purl = "Suicune";
+      if (purl == "FnkfCFfHGeI")
+        purl = "Terrakion";
+      if (purl == "KnjGZlmuVNLD")
+        purl = "Thundurus";
+      if (purl == "RmINoasKJHQM")
+        purl = "Type: Null";
+      if (purl == "GYtnnnXrY")
+        purl = "Uxie";
+      if (purl == "XAHqDsmsnYPy")
+        purl = "Xerneasl";
+      if (purl == "BCkOKdujjXJL")
+        purl = "Yveltal";
+      if (purl == "EtfoHCBPdbWf")
+        purl = "Zygarde";
+      if (purl == "JqIQArvMEW")
+        purl = "Virizion";
+      if (purl == "AZnqbchL")
+        purl = "Zapdos";
+      if (purl == "DzioNyoHsd")
+        purl = "Zekrom";
+
+      if(config.TO_CATCH.indexOf(purl) == -1)
+        return;
+      message.channel.send("p!catch "+purl);
+      var newpoke = new Discord.RichEmbed()
+        .setTitle("New Pokemon Spotted!")
+        .setThumbnail(embed.image.url)
+        .setColor("#22dd22")
+        .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
+        .addField("Server", message.guild.name)
+        .addField("Channel", message.channel.name)
+        .addField("Pokemon", purl);
+        logEnter(message, newpoke);
+    }
+    }
+  });
+  }
 }
 
-//ezpz lemon squeezy
-else if(args == "ez pz" || args == "ezpz")
-message.channel.send("Lemon Squeezy :wink:");
-
+//Speech commands
+else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase().startsWith("!say"))
+{
+  let cts = config.GENERAL;
+  if(bot.channels.get(cts))
+  {
+    bot.channels.get(cts).startTyping(3);
+    setTimeout(waitsend,3000,bot,cts,message.content.substring(5));
+    bot.channels.get(cts).stopTyping(true);
+    message.channel.send(new Discord.RichEmbed()
+      .setTitle("Scroll Delivered!")
+      .setThumbnail(bot.channels.get(cts).guild.iconURL)
+      .setColor("#22dd22")
+      .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
+      .addField("Sender", message.author)
+      .addField("Castle sent to", bot.channels.get(cts).guild.name)
+      .addField("Room delivered to", bot.channels.get(cts).name)
+      .addField("Content of the scroll", message.content.substring(5)));
+      if(bot.guilds.get(message.guild.id).members.get(bot.user.id).hasPermission("MANAGE_MESSAGES"))
+      message.delete();
+  }
+  else
+  {
+    message.reply("Pardon me senpai! Couldn't deliver the scroll!! :frowning: ");
+  }
 }
+
+//Trade commands
+else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase().startsWith("!"))
+{
+  if(bot.channels.get(config.SAY_CHANNEL))
+  {
+    bot.channels.get(config.SAY_CHANNEL).startTyping(3);
+    setTimeout(waitsend,1,bot,config.SAY_CHANNEL,"p"+message.content);
+    bot.channels.get(config.SAY_CHANNEL).stopTyping(true);
+    message.channel.send(new Discord.RichEmbed()
+      .setTitle("Scroll Delivered!")
+      .setThumbnail(bot.channels.get(config.SAY_CHANNEL).guild.iconURL)
+      .setColor("#22dd22")
+      .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
+      .addField("Sender", message.author)
+      .addField("Castle sent to", bot.channels.get(config.SAY_CHANNEL).guild.name)
+      .addField("Room delivered to", bot.channels.get(config.SAY_CHANNEL).name)
+      .addField("Content of the scroll", "p"+message.content));
+      if(bot.guilds.get(message.guild.id).members.get(bot.user.id).hasPermission("MANAGE_MESSAGES"))
+      message.delete();
+  }
+  else
+  {
+    message.reply("Pardon me senpai! Couldn't deliver the scroll!! :frowning: ");
+  }
+}
+}
+
 });
 
 //login with token

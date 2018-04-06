@@ -1,14 +1,14 @@
 {
-  "name": "romeobot",
+  "name": "Elsa",
   "version": "1.0.0",
-  "description": "Jarvis' Elder Bro!",
+  "description": "Gotta catch 'em all!",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
   },
-  "author": "Kavishankar",
-  "license": "ISC",
+  "author": "RomeoPrince",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^11.3.2"
   }
