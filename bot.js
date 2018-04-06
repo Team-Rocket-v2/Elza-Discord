@@ -54,9 +54,14 @@ if(message.content.toLowerCase() == "!ping")
 
 else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase() == "!stop")
 {
+  if(mode == 1)
+  {
   bot.user.setActivity('with Snowman!', { type: 'PLAYING' });
   message.channel.send("zzzZZZzzz");
   mode = 0;
+  }
+  else
+  message.channel.send("I am not doing anything!!!");
 }
 
 else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase() == "!start")
