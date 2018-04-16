@@ -94,8 +94,9 @@ if(message.author.id == config.POKECORD_ID)
   //level up 
   if(message.content.match(/\b100!```/) && message.content.indexOf(bot.user.username) != -1)
   {
-    bot.channels.get(config.SAY_CHANNEL).send("p!info");
-    setTimeout(waitsend,3000,bot,config.SAY_CHANNEL,"p!n");
+    bot.channels.get(config.SAY_CHANNEL).send("p!info")
+    .then(
+      setTimeout(waitsend,3000,bot,config.SAY_CHANNEL,"p!n"));
     logEnter(message, message.content);
   }
 
