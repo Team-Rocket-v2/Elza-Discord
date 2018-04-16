@@ -1,6 +1,8 @@
 //import discord.js libraries
 const Discord = require("discord.js");
 const config = require("./config.json");
+const pokedex = require("./Pokedex.json");
+const my_ver = require("./package.json").version;
 let mode = 1;
 
 //spamtime func
@@ -37,6 +39,11 @@ bot.on("ready", function() {
   spam_house = bot.channels.get(config.SPAM_CHANNEL);
   setInterval(spamtime,1500,spam_house);
 
+});
+
+//error
+bot.on("error", function(err) {
+  console.error(err);
 });
 
 //When a message is received
@@ -84,11 +91,11 @@ else if(mode == 1)
 if(message.author.id == config.POKECORD_ID)
 {
 
-  //level up (Need to test)
+  //level up 
   if(message.content.match(/\b100!```/) && message.content.indexOf(bot.user.username) != -1)
   {
     bot.channels.get(config.SAY_CHANNEL).send("p!info");
-    bot.channels.get(config.SAY_CHANNEL).send("p!n");
+    setTimeout(waitsend,3000,bot,config.SAY_CHANNEL,"p!n");
     logEnter(message, message.content);
   }
 
@@ -98,175 +105,10 @@ if(message.author.id == config.POKECORD_ID)
   message.embeds.forEach((embed) => {
     if(embed.title){
     if(embed.title.startsWith("A wild")){
-      var purl=embed.image.url.toString();
-      purl=purl.substring(purl.indexOf(purl.match(/[A-Z]/)));
-      purl=purl.substring(0,purl.indexOf(purl.match(/[^A-Za-z]/)));
-      if (purl == "DVdRNzub")
-        purl = "Pheromosa";
-      if (purl == "ZFhVGXfqLm")
-        purl = "Nihilego";
-      if (purl == "NUZGOUliZbVp")
-        purl = "Xurkitree";
-      if (purl == "ANvAfwmkGRaB")
-        purl = "Buzzwole";
-      if (purl == "WVViynlNwhq")
-        purl = "Celesteela";
-      if (purl == "BerOymYadVZb")
-        purl = "Kartana";
-      if (purl == "RNgybNqrYHt")
-        purl = "Guzzlord";
-      if (purl == "CxNLfbLtZvMP")
-        purl = "Poipole";
-      if (purl == "BRtRnAKMm")
-        purl = "Naganadel";
-      if (purl == "XPJVtJJDCWO")
-        purl = "Stakataka";
-      if (purl == "WnZrvNFUht")
-        purl = "Blacephalon";
-      if (purl == "ZwtyzSpoTGK")
-        purl = "Mewtwo";
-      if (purl == "EnGVvUpPvFla")
-        purl = "Pikachu";
-      if (purl == "AwhJEbFjPny")
-        purl = "Sableye";
-      if (purl == "FTddeIjIvRTi")
-        purl = "Gastly";
-      if (purl == "LuMnrrdafnND")
-        purl = "Vulpix";
-      if (purl == "FmgyRqsjVuQ")
-        purl = "Ninetales";
-      if (purl == "BoRNRwCIno")
-        purl = "Espeon";
-      if (purl == "UlaeTRHTQKPZ")
-        purl = "Sylveon";
-      if (purl == "VHqyKhNEQFty")
-        purl = "Umbreon";
-      if (purl == "WwEkVykHXvni")
-        purl = "Flareon";
-      if (purl == "VyEviGywEOl")
-        purl = "Glaceon";
-      if (purl == "CzNDTVh")
-        purl = "Vaporeon";
-      if (purl == "PzJhuXvooAxu")
-        purl = "Jolteon";
-      if (purl == "HPNnLbWftdv")
-        purl = "Leafeon";
-      if (purl == "TdJFNIbZLtD")
-        purl = "Rockruff";
-      if (purl == "QzTTypudiXg")
-        purl = "Lycanroc";
-      if (purl == "RYgHJuvUUT")
-        purl = "Necrozma";
-      if (purl == "YbkjWOSQYGT")
-        purl = "Cosmog";
-      if (purl == "OXgNulEK")
-        purl = "Solgaleo";
-      if (purl == "KkFJEJvHIk")
-        purl = "Lunala";
-      if (purl == "CLMXnAHoJBHz")
-        purl = "Arceus";
-      if (purl == "ABILovbRKFj")
-        purl = "Articuno";
-      if (purl == "QsIWrEOWzdFZ")
-        purl = "Azelf";
-      if (purl == "XSBkJJPKDr")
-        purl = "Celebi";
-      if (purl == "GVUFalDTQCu")
-        purl = "Cobalion";
-      if (purl == "GVUFalDTQCu")
-        purl = "Cresselia";
-      if (purl == "PymtoiCJkjfF")
-        purl = "Darkrai";
-      if (purl == "KFBEarCORUNx")
-        purl = "Deoxys";
-      if (purl == "EyrnISUymuXj")
-        purl = "Dialga";
-      if (purl == "VgFYcpQTuGcL")
-        purl = "Entei";
-      if (purl == "LRzWPtwPpUGf")
-        purl = "Genesect";
-      if (purl == "LjZxfPivZxG")
-        purl = "Giratina";
-      if (purl == "HyEzrFRvvf")
-        purl = "Groudon";
-      if (purl == "IDyvqbxkSK")
-        purl = "Heatran";
-      if (purl == "NKcRJRyzXtCs")
-        purl = "Ho-Oh";
-      if (purl == "KGpuxmLsNU")
-        purl = "Jirachi";
-      if (purl == "QRnPhHMru")
-        purl = "Keldeo";
-      if (purl == "ZjNWcRpYeL")
-        purl = "Kyogre";
-      if (purl == "FYRxKEoKrDsn")
-        purl = "Kyurem";
-      if (purl == "DOWDgxkTBKN")
-        purl = "Landorus";
-      if (purl == "UlaoIUTYzze")
-        purl = "Latias";
-      if (purl == "HMJOYWOrpfI")
-        purl = "Latios";
-      if (purl == "YyBjmtLqNJb")
-        purl = "Lugia";
-      if (purl == "OhHdWsAIonRP")
-        purl = "Manaphy";
-      if (purl == "MuvAg")
-        purl = "Meloetta";
-      if (purl == "ZrtVXpOsXYD")
-        purl = "Mesprit";
-      if (purl == "GOvTOLWUXLyi")
-        purl = "Mew";
-      if (purl == "ZkYQHqyjWHF")
-        purl = "Moltres";
-      if (purl == "PKoCOJhjCQ")
-        purl = "Palkia";
-      if (purl == "VyZGhxJJYF")
-        purl = "Phione";
-      if (purl == "EZuvTLLhEpDT")
-        purl = "Raikou";
-      if (purl == "UUbmdNYWQGe")
-        purl = "Rayquaza";
-      if (purl == "PegdgOrDJauX")
-        purl = "Regice";
-      if (purl == "HXUuofxeSJe")
-        purl = "Regigigas";
-      if (purl == "BQlppBYsqWJX")
-        purl = "Regirock";
-      if (purl == "PegdgOrDJauX")
-        purl = "Registeel";
-      if (purl == "AQPPuTcdnBu")
-        purl = "Reshiram";
-      if (purl == "DfKyJVhlQ")
-        purl = "Shaymin";
-      if (purl == "IPCdYBDsYZRO")
-        purl = "Silvally";
-      if (purl == "DGccLGDwfAr")
-        purl = "Suicune";
-      if (purl == "FnkfCFfHGeI")
-        purl = "Terrakion";
-      if (purl == "KnjGZlmuVNLD")
-        purl = "Thundurus";
-      if (purl == "RmINoasKJHQM")
-        purl = "Type: Null";
-      if (purl == "GYtnnnXrY")
-        purl = "Uxie";
-      if (purl == "XAHqDsmsnYPy")
-        purl = "Xerneasl";
-      if (purl == "BCkOKdujjXJL")
-        purl = "Yveltal";
-      if (purl == "EtfoHCBPdbWf")
-        purl = "Zygarde";
-      if (purl == "JqIQArvMEW")
-        purl = "Virizion";
-      if (purl == "AZnqbchL")
-        purl = "Zapdos";
-      if (purl == "DzioNyoHsd")
-        purl = "Zekrom";
-
-      if(config.TO_CATCH.indexOf(purl) == -1)
+      var index = pokedex.table.findIndex(obj => obj.url==embed.image.url);
+      if(!pokedex.table[index].catch)
         return;
-      message.channel.send("p!catch "+purl);
+      message.channel.send("p!catch "+pokedex.table[index].name);
       var newpoke = new Discord.RichEmbed()
         .setTitle("New Pokemon Spotted!")
         .setThumbnail(embed.image.url)
@@ -274,7 +116,7 @@ if(message.author.id == config.POKECORD_ID)
         .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
         .addField("Server", message.guild.name)
         .addField("Channel", message.channel.name)
-        .addField("Pokemon", purl);
+        .addField("Pokemon", pokedex.table[index].name);
         logEnter(message, newpoke);
     }
     }
@@ -307,6 +149,12 @@ else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase(
   {
     message.reply("Pardon me senpai! Couldn't deliver the scroll!! :frowning: ");
   }
+}
+
+//version
+else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase() == "!version")
+{
+  message.channel.send(my_ver);
 }
 
 //Trade commands
