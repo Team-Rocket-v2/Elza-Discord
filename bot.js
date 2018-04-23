@@ -117,7 +117,7 @@ else if(message.channel.id == config.SAY_CHANNEL && message.content.toLowerCase(
   else
   { 
     bot.user.setActivity('with Ana!', { type: 'PLAYING' }); 
-    message.channel.send("Do you wanna catch Pokemoooooons?");
+    message.channel.send("Do you wanna build a Snowmaaaaaaaaaaan? :open_mouth:");
     mode = 1;
   }
 }
