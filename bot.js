@@ -5,10 +5,21 @@ const pokedex = require("./Pokedex.json");
 const my_ver = require("./package.json").version;
 let mode = 1;
 
+//random number generator
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+//random channel id
+function getRandomChannel(){
+  return config.SPAM_CHANNEL[getRandomInt(config.SPAM_CHANNEL.length)];
+}
+
 //spamtime func
-function spamtime(spam_house){
+function spamtime(bot){
   if(mode == 1)
   {
+  var spam_house = bot.channels.get(getRandomChannel());
   spam_house.startTyping(3);
   spam_house.send(config.SPAM_MSG);
   spam_house.stopTyping(true);
@@ -63,8 +74,7 @@ bot.on("ready", function() {
   bot.user.setActivity('with Ana!', { type: 'PLAYING' })
 
   //spam
-  spam_house = bot.channels.get(config.SPAM_CHANNEL);
-  setInterval(spamtime,1500,spam_house);
+  setInterval(spamtime,1500,bot);
 
 });
 

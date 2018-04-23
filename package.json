@@ -1,6 +1,6 @@
 {
   "name": "elsa",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "Gotta catch 'em all!",
   "main": "bot.js",
   "scripts": {
