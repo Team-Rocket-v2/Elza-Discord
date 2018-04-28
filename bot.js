@@ -150,7 +150,7 @@ if(message.author.id == config.POKECORD_ID)
   }
 
   //new poke... possibly
-  else
+  else if(process.env.CATCH == "1")
   {
   message.embeds.forEach((embed) => {
     if(embed.title){
