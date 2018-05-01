@@ -35,7 +35,7 @@ function spamtime(bot){
 }
 
 //spamboost func
-function spamtime(bot){
+function spamboost(bot){
   if(booster == 1)
   {
   bot.channels.get(process.env.SAY_CHANNEL).send("p!buy 3");
