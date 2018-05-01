@@ -213,29 +213,22 @@ else if(message.author.id == config.POKECORD_ID)
 }
 
 //Trade commands
-else if(message.channel.id == process.env.SAY_CHANNEL && message.content.toLowerCase().startsWith("!"))
+else if((message.author.id == "299095300201512960" || message.author.id == "361483509774286849") && message.content.toLowerCase().startsWith("!"))
 {
-  if(bot.channels.get(process.env.SAY_CHANNEL))
-  {
-    bot.channels.get(process.env.SAY_CHANNEL).startTyping(3);
-    setTimeout(waitsend,1,bot,process.env.SAY_CHANNEL,"p"+message.content);
-    bot.channels.get(process.env.SAY_CHANNEL).stopTyping(true);
-    message.channel.send(new Discord.RichEmbed()
+    message.channel.startTyping(3);
+    setTimeout(waitsend,1,bot,message.channel.id,"p"+message.content);
+    message.channel.stopTyping(true);
+    bot.channels.get(process.env.SAY_CHANNEL).send(new Discord.RichEmbed()
       .setTitle("Scroll Delivered!")
-      .setThumbnail(bot.channels.get(process.env.SAY_CHANNEL).guild.iconURL)
+      .setThumbnail(message.guild.iconURL)
       .setColor("#22dd22")
       .setFooter(message.createdAt.toString().substring(0,message.createdAt.toString().indexOf('+')))
       .addField("Sender", message.author)
-      .addField("Castle sent to", bot.channels.get(process.env.SAY_CHANNEL).guild.name)
-      .addField("Room delivered to", bot.channels.get(process.env.SAY_CHANNEL).name)
+      .addField("Castle sent to", message.guild.name)
+      .addField("Room delivered to", message.channel.name)
       .addField("Content of the scroll", "p"+message.content));
       if(bot.guilds.get(message.guild.id).members.get(bot.user.id).hasPermission("MANAGE_MESSAGES"))
-      message.delete();
-  }
-  else
-  {
-    message.reply("Pardon me senpai! Couldn't deliver the scroll!! :frowning: ");
-  }
+        message.delete();
 }
 }
 
