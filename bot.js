@@ -4,6 +4,7 @@ const config = require("./config.json");
 const pokedex = require("./Pokedex.json");
 const my_ver = require("./package.json").version;
 let mode = 1;
+let booster = 0;
 
 //random number generator
 function getRandomInt(max) {
@@ -30,6 +31,14 @@ function spamtime(bot){
   spam_house.startTyping(3);
   spam_house.send(getRandomMessage());
   spam_house.stopTyping(true);
+  }
+}
+
+//spamboost func
+function spamtime(bot){
+  if(booster == 1)
+  {
+  bot.channels.get(process.env.SAY_CHANNEL).send("p!buy 3");
   }
 }
 
@@ -83,6 +92,7 @@ bot.on("ready", function() {
 
   //spam
   setInterval(spamtime,1500,bot);
+  setInterval(spamboost,600100,bot);
 
 });
 
@@ -138,8 +148,36 @@ else if(message.channel.id == process.env.SAY_CHANNEL && message.content.toLower
 
 else if(mode == 1)
 {
+
+if(message.channel.id == process.env.SAY_CHANNEL && message.content.toLowerCase() == "!boost on")
+{
+  if(booster == 1)
+  {
+    message.channel.send("Booster is already enabled!");
+  }
+  else
+  {
+    message.channel.send("Booster Enabled!");
+    message.channel.send("p!buy 3");
+    booster = 1;
+  }
+}
+
+else if(message.channel.id == process.env.SAY_CHANNEL && message.content.toLowerCase() == "!boost off")
+{
+  if(booster == 0)
+  {
+    message.channel.send("Booster is already Disabled");
+  }
+  else
+  {
+    message.channel.send("Booster Disabled!");
+    booster = 0;
+  }
+}
+
 //When a New pokemon appears or a pokemon levels up
-if(message.author.id == config.POKECORD_ID)
+else if(message.author.id == config.POKECORD_ID)
 {
 
   //level up 
