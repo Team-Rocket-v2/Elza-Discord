@@ -194,6 +194,8 @@ else if(message.author.id == config.POKECORD_ID)
     if(embed.title){
     if(embed.title.startsWith("A wild")){
       var index = pokedex.table.findIndex(obj => obj.url==embed.image.url);
+      if(index == -1)
+        return;
       if(!pokedex.table[index].catch)
         return;
       message.channel.send("p!catch "+pokedex.table[index].name);
